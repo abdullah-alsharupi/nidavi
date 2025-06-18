@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-20 bg-black text-white">
+    <section id="about" className="py-5 bg-black text-white">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
