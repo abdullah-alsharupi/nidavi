@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import CookieConsent from './components/cookies'
 
 export const metadata: Metadata = {
   title: 'Digitale Lösungen - Premium Webentwicklung',
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body>{children}</body>
+      <CookieConsent/>
     </html>
   )
 }

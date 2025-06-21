@@ -87,7 +87,7 @@ export default function ServicesSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div className="relative overflow-visible pb-6">
+            <div className="relative overflow-visible">
               <div className="flex animate-slide-horizontal-slow w-max">
                 {services.map((service, index) => (
                   <motion.div
