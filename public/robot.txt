@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://nidavi.de
+
+# Sitemaps
+Sitemap: https://nidavi.de/sitemap.xml
