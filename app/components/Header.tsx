@@ -54,7 +54,7 @@ export default function Header() {
     { href: "#home", label: "Über Uns" },
     { href: "#leistungen", label: "Leistungen" },
     { href: "#projekte", label: "Portfolio" },
-    { href: "#blog", label: "Partner" },
+    { href: "#blog", label: "Blog" },
     { href: "#kontakt", label: "Kontakt", isButton: true },
   ];
 
@@ -83,7 +83,7 @@ export default function Header() {
     <>
       <header
         className={`fixed min-w-full top-0 z-40 transition-all duration-300 ${
-          isScrolled ? "bg-white/95 shadow-sm" : "bg-white/80"
+          isScrolled ? "bg-white shadow-sm" : "bg-white"
         } backdrop-blur-sm`}
       >
         <nav className="mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -161,14 +161,14 @@ export default function Header() {
 
       {/* Full-Screen Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-50 bg-black text-white transition-all duration-500 ease-in-out overflow-scroll  ${
+        className={`h-fit fixed inset-0 z-50 bg-black text-white transition-all duration-500 ease-in-out   ${
           isMenuOpen 
             ? "opacity-100 visible" 
             : "opacity-0 invisible"
         } md:hidden`}
         ref={menuRef}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-max">
           {/* Header Section */}
           <div className="flex items-center justify-between p-6 border-b border-gray-800">
             <div className="flex items-center">
@@ -215,7 +215,7 @@ export default function Header() {
             </div>
 
             {/* Main Navigation */}
-            <div className="space-y-6 mb-12">
+            <div className="space-y-3 mb-12">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -238,7 +238,7 @@ export default function Header() {
                 {/* Unterseiten */}
                 <div>
                   <h3 className="text-lg font-medium mb-4 text-gray-300">Unterseiten</h3>
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     {footerLinks.unterseiten.map((link) => (
                       <a
                         key={link.href}
@@ -255,7 +255,7 @@ export default function Header() {
                 {/* Leistungen & Contact */}
                 <div>
                   <h3 className="text-lg font-medium mb-4 text-gray-300">Leistungen</h3>
-                  <div className="space-y-2 mb-6">
+                  <div className="space-y-1 mb-6">
                     {footerLinks.leistungen.map((link) => (
                       <a
                         key={link.href}

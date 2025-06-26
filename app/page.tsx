@@ -8,6 +8,7 @@ import ProjectSection from './components/ProjectSection'
 import TestimonialSection from './components/TestimonialSection'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Form from './components/Form'
 
 export default function Home() {
   const [mounted, setMounted] = useState(false)
@@ -21,14 +22,17 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <Header />
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
+     <div className="overflow-x-hidden">
+      <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 w-full max-w-[100vw]">
+        <Header />
+        <HeroSection />
+        <AboutSection />
+           <ServicesSection />
       <ProjectSection />
       <TestimonialSection /> 
-      <Footer />
-    </main>
+        <Form/>
+        <Footer />
+      </main>
+    </div>
   )
 }

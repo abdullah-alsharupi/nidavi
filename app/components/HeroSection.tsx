@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -81,7 +82,7 @@ export default function HeroSection() {
     <section
       id="home"
       ref={ref}
-      className="italic bg-yellow-500 relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="italic bg-white relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Animated Particle Background */}
       <div className="absolute inset-0 overflow-hidden">
@@ -313,27 +314,11 @@ export default function HeroSection() {
               animate={{ rotate: [0, 360] }}
               transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
             >
-              <span className="text-white font-bold text-xs sm:text-sm">
-                AWARD
-              </span>
+              <Image src={'/BrandAwardDesign.png'}  alt="" width={500} height={300} quality={100}/>
             </motion.div>
             <div className="text-left">
-              <div className="font-bold text-base sm:text-lg">Google</div>
-              <div className="flex text-yellow-600">
-                {[...Array(5)].map((_, i) => (
-                  <motion.span
-                    key={i}
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{
-                      duration: 1,
-                      delay: i * 0.2,
-                      repeat: Infinity,
-                    }}
-                  >
-                    ★
-                  </motion.span>
-                ))}
-              </div>
+              <div className="font-bold text-base sm:text-lg"> <Image src={'/GoogleRating.png'}  alt="" width={200} height={200}/></div>
+             
             </div>
           </motion.div>
         </motion.div>

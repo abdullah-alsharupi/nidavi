@@ -1,85 +1,164 @@
-'use client'
+import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
 
-import { motion } from 'framer-motion'
+const About: React.FC = () => {
+  const [ref, inView] = useInView({
+    threshold: 0.3,
+    triggerOnce: false
+  });
 
-export default function AboutSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1,
+        ease: "anticipate"
+      }
+    }
+  };
+
+  const buttonVariants = {
+    hover: {
+      scale: 1.05,
+      transition: {
+        yoyo: Infinity,
+        duration: 0.3
+      }
+    },
+    tap: {
+      scale: 0.95
+    }
+  };
+
   return (
-    <section id="about" className="py-5 bg-black text-white">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+    <section 
+      id="about" 
+      className="bg-black text-white py-16 md:py-24 lg:py-32"
+      ref={ref}
+    >
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left Content */}
+          <motion.div 
+            className="space-y-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
           >
-            <h3 className="text-yellow-400 text-lg font-medium mb-4">Über Uns</h3>
-            <h2 className="text-4xl md:text-5xl font-light mb-8">
-              Lerne uns <em className="italic">kennen</em>
-            </h2>
-            
-            <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
+            <motion.div variants={itemVariants}>
+              <p className="text-yellow-400 font-medium mb-2 md:mb-4 text-lg">Über Uns</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-6 md:mb-8">
+                <span className="italic font-serif">Lerne uns</span> kennen
+              </h2>
+            </motion.div>
+
+            <motion.div 
+              className="space-y-4 md:space-y-6 text-gray-300 leading-relaxed text-base md:text-lg"
+              variants={itemVariants}
+            >
               <p>
-                NIDAVI ist deine Designagentur aus Miesbach, spezialisiert 
-                auf modernes Branding, Webdesign und strategisches 
-                Marketing für Handwerksbetriebe und kleine Unternehmen.
+                NIDAVI ist deine Designagentur aus Miesbach – spezialisiert auf Branding, Webdesign und Marketing mit Wirkung.
               </p>
-              
               <p>
-                Wir glauben an Gestaltung mit Bedeutung. Unsere Entwürfe 
-                sehen nicht nur gut aus – sie lösen Aufgaben. Sichtbarkeit, 
-                Wiedererkennung, Vertrauen – alles beginnt mit dem 
-                richtigen Design.
+                Wir gestalten keine 08/15-Designs, sondern Marken mit Charakter. Für Handwerksbetriebe und kleine Unternehmen entwickeln wir individuelle Lösungen, die sichtbar machen, was dich besonders macht – klar, strategisch, ästhetisch.
               </p>
-              
-              <p>
-                Unser Ansatz ist bewusst anders: keine 08/15-Designs, keine 
-                Templates von der Stange, keine Floskeln. keine 08/15-
-                Designs, keine Templates von der Stange, keine Floskeln.
-              </p>
-            </div>
-            
-            <motion.button
-              className="bg-yellow-400 text-black px-8 py-3 font-medium mt-8 hover:bg-yellow-300 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            </motion.div>
+
+            <motion.a
+              href="#contact"
+              className="inline-block bg-yellow-400 text-black px-6 py-3 md:px-8 md:py-4 font-medium hover:bg-yellow-500 transition-all duration-300"
+              variants={itemVariants}
+              whileHover="hover"
+              whileTap="tap"
+              variants={buttonVariants}
             >
               Mehr zu uns
-            </motion.button>
+            </motion.a>
           </motion.div>
-          
-         <motion.div
-  className="relative"
-  initial={{ opacity: 0, x: 50 }}
-  whileInView={{ opacity: 1, x: 0 }}
-  transition={{ duration: 0.8 }}
-  viewport={{ once: true }}
->
-<div className="flex flex-col items-center">
-  {/* الديف الأول - في البداية */}
-  <div className="w-full">
-    <h3 className="float-start start-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none mb-2 md:mb-4">
-      Create.
-    </h3>
-  </div>
 
-  {/* الديف الثاني - في المنتصف أسفل الأول */}
-  <div className="w-full text-center my-4">
-    <h3 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none text-yellow-400 italic mb-2 md:mb-4">
-      Impress.
-    </h3>
-  </div>
-
-  {/* الديف الثالث - في النهاية أسفل الثاني */}
-  <div className="w-full text-right">
-    <h3 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none">
-      Stay.
-    </h3>
-  </div>
-</div>
-</motion.div>
+          {/* Right Content */}
+          <motion.div 
+            className="relative"
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={imageVariants}
+          >
+            <div className="relative w-full mx-auto">
+              <div className="aspect-w-16 aspect-h-9 md:aspect-w-3 md:aspect-h-2">
+                <Image 
+                  src="/NidaviLogoColorful.png" 
+                  alt="NIDAVI Team"
+                  layout="responsive"
+                  width={800}
+                  height={600}
+                  className="rounded-lg shadow-2xl"
+                  objectFit="cover"
+                  quality={100}
+                />
+              </div>
+              
+              {/* Floating elements animation */}
+              {inView && (
+                <>
+                  <motion.div 
+                    className="absolute -top-4 -left-4 w-16 h-16 bg-yellow-400 rounded-full mix-blend-multiply opacity-20"
+                    animate={{
+                      y: [0, -10, 0],
+                      scale: [1, 1.1, 1]
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <motion.div 
+                    className="absolute -bottom-4 -right-4 w-24 h-24 bg-yellow-400 rounded-full mix-blend-multiply opacity-20"
+                    animate={{
+                      y: [0, 10, 0],
+                      scale: [1, 1.2, 1]
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.5
+                    }}
+                  />
+                </>
+              )}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
+
+export default About;

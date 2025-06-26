@@ -6,7 +6,7 @@ import { useState } from 'react'
 const testimonials = [
   {
     id: 1,
-    text: "Mit NIDAVI haben wir endlich einen Partner gefunden, der nicht nur versteht, was wir brauchen – sondern auch, wie man es modern, professionell und mit Wiedererkennungswert umsetzt. Vom Logo bis zur Website passt einfach alles. Unsere Kunden merken den Unterschied.",
+    text: "Mit NIDAVI haben wir endlich einen Bloger gefunden, der nicht nur versteht, was wir brauchen – sondern auch, wie man es modern, professionell und mit Wiedererkennungswert umsetzt. Vom Logo bis zur Website passt einfach alles. Unsere Kunden merken den Unterschied.",
     author: "Fatih Arslan",
     company: "Arslan Tiefbau"
   },
