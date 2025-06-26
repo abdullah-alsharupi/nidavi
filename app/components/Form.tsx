@@ -61,9 +61,7 @@ function Form() {
       newErrors.telefon = 'Telefonnummer ist erforderlich';
     }
 
-    if (!formData.datenschutz) {
-      newErrors.datenschutz = 'Datenschutzerklärung muss akzeptiert werden';
-    }
+   
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

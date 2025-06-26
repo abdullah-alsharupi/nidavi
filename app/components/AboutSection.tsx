@@ -96,7 +96,7 @@ const About: React.FC = () => {
               variants={itemVariants}
               whileHover="hover"
               whileTap="tap"
-              variants={buttonVariants}
+          
             >
               Mehr zu uns
             </motion.a>
