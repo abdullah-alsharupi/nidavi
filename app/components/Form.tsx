@@ -1,426 +1,184 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Flag } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-interface FormData {
-  vorname: string;
-  nachname: string;
-  unternehmen: string;
-  email: string;
-  telefon: string;
-  datenschutz: boolean;
-}
-
-function Form() {
-  const [formData, setFormData] = useState<FormData>({
+const Contact = () => {
+  const [formData, setFormData] = useState({
     vorname: '',
     nachname: '',
     unternehmen: '',
     email: '',
     telefon: '',
+    nachricht: '',
     datenschutz: false
   });
 
-  const [errors, setErrors] = useState<Partial<FormData>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
-
-    if (errors[name as keyof FormData]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
   };
 
-  const validateForm = (): boolean => {
-    const newErrors: Partial<FormData> = {};
-
-    if (!formData.vorname.trim()) {
-      newErrors.vorname = 'Vorname ist erforderlich';
-    }
-
-    if (!formData.nachname.trim()) {
-      newErrors.nachname = 'Nachname ist erforderlich';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'E-Mail-Adresse ist erforderlich';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Ungültige E-Mail-Adresse';
-    }
-
-    if (!formData.telefon.trim()) {
-      newErrors.telefon = 'Telefonnummer ist erforderlich';
-    }
-
-   
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (validateForm()) {
-      setIsSubmitting(true);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      console.log('Form submitted:', formData);
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-        setFormData({
-          vorname: '',
-          nachname: '',
-          unternehmen: '',
-          email: '',
-          telefon: '',
-          datenschutz: false
-        });
-      }, 3000);
-    }
-  };
-
-  // German flag animation variants
-  const flagVariants = {
-    initial: { rotate: -10, y: -10 },
-    animate: { 
-      rotate: 0, 
-      y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 300,
-        damping: 10
-      }
-    },
-    hover: {
-      rotate: [0, -5, 5, 0],
-      transition: {
-        duration: 0.8,
-        repeat: Infinity
-      }
-    }
+    console.log('Form submitted:', formData);
   };
 
   return (
-    <motion.div 
-      className="min-h-screen bg-black text-white flex items-center justify-center px-4 py-12"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
-      <motion.div 
-        className="w-full max-w-4xl"
-        initial={{ y: 50 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        {/* Header Section */}
+    <section className="min-h-screen bg-black text-white flex items-center justify-center px-8 py-16 relative overflow-hidden">
+      <div className="max-w-2xl mx-auto w-full">
+        {/* Header */}
         <motion.div 
-          className="mb-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
         >
-          <motion.h2 
-            className="text-yellow-400 text-lg font-medium mb-2"
-            initial={{ x: -20 }}
-            animate={{ x: 0 }}
-            transition={{ delay: 0.3 }}
-          >
+          <h3 className="text-yellow-400 text-xl mb-4 uppercase tracking-wider">
             Kontaktmöglichkeit
-          </motion.h2>
-          <motion.h1 
-            className="text-white text-4xl md:text-5xl font-light italic mb-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            Fragen oder Ideen?
-          </motion.h1>
-          <motion.p 
-            className="text-white text-lg leading-relaxed max-w-3xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            Du hast Fragen zu uns, unseren Dienstleistungen oder was Anderem oder brauchst 
-            jemanden der deine Ideen auf bester Art umsetzt? Dann schreib uns jetzt an!
-          </motion.p>
+          </h3>
+          <h2 className="text-4xl md:text-5xl font-light text-white mb-8">
+            Fragen <span className="italic font-serif">oder</span> Ideen?
+          </h2>
+          <p className="text-gray-300 text-lg leading-relaxed max-w-xl mx-auto">
+            Du hast Fragen zu uns, unseren Dienstleistungen oder was 
+            Anderem oder brauchst jemanden der deine Ideen auf bester Art 
+            umsetzt? Dann schreib uns jetzt an!
+          </p>
         </motion.div>
 
         {/* Contact Form */}
         <motion.form 
-          onSubmit={handleSubmit} 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          onSubmit={handleSubmit}
           className="space-y-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
         >
           {/* First Row - Name Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div 
-              className="relative"
-              initial={{ x: -30, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.7 }}
-            >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="relative">
               <input
                 type="text"
                 name="vorname"
                 value={formData.vorname}
                 onChange={handleInputChange}
                 placeholder="Vorname*"
-                className={`w-full bg-transparent border-0 border-b-2 ${
-                  errors.vorname ? 'border-red-500' : 'border-white'
-                } text-white placeholder-gray-400 pb-2 focus:outline-none focus:border-yellow-400 transition-colors duration-300`}
+                required
+                className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg"
               />
-              <AnimatePresence>
-                {errors.vorname && (
-                  <motion.span 
-                    className="text-red-500 text-sm mt-1 block"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                  >
-                    {errors.vorname}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </motion.div>
-
-            <motion.div 
-              className="relative"
-              initial={{ x: 30, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.7 }}
-            >
+            </div>
+            <div className="relative">
               <input
                 type="text"
                 name="nachname"
                 value={formData.nachname}
                 onChange={handleInputChange}
                 placeholder="Nachname*"
-                className={`w-full bg-transparent border-0 border-b-2 ${
-                  errors.nachname ? 'border-red-500' : 'border-white'
-                } text-white placeholder-gray-400 pb-2 focus:outline-none focus:border-yellow-400 transition-colors duration-300`}
+                required
+                className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg"
               />
-              <AnimatePresence>
-                {errors.nachname && (
-                  <motion.span 
-                    className="text-red-500 text-sm mt-1 block"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                  >
-                    {errors.nachname}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </motion.div>
+            </div>
           </div>
 
           {/* Company Field */}
-          <motion.div 
-            className="relative"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
+          <div className="relative">
             <input
               type="text"
               name="unternehmen"
               value={formData.unternehmen}
               onChange={handleInputChange}
               placeholder="Unternehmen"
-              className="w-full bg-transparent border-0 border-b-2 border-white text-white placeholder-gray-400 pb-2 focus:outline-none focus:border-yellow-400 transition-colors duration-300"
+              className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg"
             />
-          </motion.div>
-
-          {/* Second Row - Contact Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div 
-              className="relative"
-              initial={{ x: -30, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.9 }}
-            >
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="E-Mail-Adresse*"
-                className={`w-full bg-transparent border-0 border-b-2 ${
-                  errors.email ? 'border-red-500' : 'border-white'
-                } text-white placeholder-gray-400 pb-2 focus:outline-none focus:border-yellow-400 transition-colors duration-300`}
-              />
-              <AnimatePresence>
-                {errors.email && (
-                  <motion.span 
-                    className="text-red-500 text-sm mt-1 block"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                  >
-                    {errors.email}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </motion.div>
-
-            <motion.div 
-              className="relative"
-              initial={{ x: 30, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.9 }}
-            >
-              <div className="flex items-center">
-                <motion.div
-                  variants={flagVariants}
-                  initial="initial"
-                  animate="animate"
-                  whileHover="hover"
-                  className="flex items-center"
-                >
-                  <Flag className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" />
-                  {/* German flag stripes */}
-                  <div className="flex h-5 w-8 overflow-hidden rounded-sm mr-3">
-                    <div className="w-full h-1/3 bg-black"></div>
-                    <div className="w-full h-1/3 bg-red-500"></div>
-                    <div className="w-full h-1/3 bg-yellow-400"></div>
-                  </div>
-                </motion.div>
-                <input
-                  type="tel"
-                  name="telefon"
-                  value={formData.telefon}
-                  onChange={handleInputChange}
-                  placeholder="Telefonnummer*"
-                  className={`w-full bg-transparent border-0 border-b-2 ${
-                    errors.telefon ? 'border-red-500' : 'border-white'
-                  } text-white placeholder-gray-400 pb-2 focus:outline-none focus:border-yellow-400 transition-colors duration-300`}
-                />
-              </div>
-              <AnimatePresence>
-                {errors.telefon && (
-                  <motion.span 
-                    className="text-red-500 text-sm mt-1 block"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                  >
-                    {errors.telefon}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </motion.div>
           </div>
 
-          {/* Privacy Policy Checkbox */}
-          <motion.div 
-            className="py-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            <label className="flex items-start space-x-3 cursor-pointer">
-              <motion.input
-                type="checkbox"
-                name="datenschutz"
-                checked={formData.datenschutz}
+          {/* Email Field */}
+          <div className="relative">
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              placeholder="E-Mail-Adresse*"
+              required
+              className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg"
+            />
+          </div>
+
+          {/* Phone Field with German Flag */}
+          <div className="relative">
+            <div className="flex items-center border-b-2 border-gray-600 focus-within:border-yellow-400 transition-colors">
+              <div className="flex items-center mr-4 flex-shrink-0">
+                {/* German Flag */}
+                <div className="w-8 h-5 border border-gray-500 overflow-hidden rounded-sm">
+                  <div className="w-full h-1/3 bg-black"></div>
+                  <div className="w-full h-1/3 bg-red-600"></div>
+                  <div className="w-full h-1/3 bg-yellow-400"></div>
+                </div>
+              </div>
+              <input
+                type="tel"
+                name="telefon"
+                value={formData.telefon}
                 onChange={handleInputChange}
-                className="mt-1 w-4 h-4 text-yellow-400 border-white bg-transparent rounded focus:ring-yellow-400 focus:ring-2"
-                whileTap={{ scale: 0.9 }}
+                placeholder="Telefonnummer*"
+                required
+                className="flex-1 bg-transparent border-0 text-white placeholder-gray-400 py-3 px-0 focus:outline-none text-lg"
               />
-              <span className="text-sm text-gray-300 leading-relaxed">
-                Mit der Verarbeitung der im Kontaktformular angegebenen personenbezogenen Daten zum Zwecke der Kontaktaufnahme durch die Bold Marketing + Development GmbH bin ich einverstanden. Nähere Informationen zur Datenverarbeitung finden Sie in unserer Datenschutzerklärung. *
-              </span>
+            </div>
+          </div>
+
+          {/* Message Field */}
+          <div className="relative">
+            <textarea
+              name="nachricht"
+              value={formData.nachricht}
+              onChange={handleInputChange}
+              placeholder="Nachricht"
+              rows={4}
+              className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg resize-none"
+            />
+          </div>
+
+          {/* Privacy Checkbox */}
+          <div className="flex items-start space-x-3 pt-4">
+            <input
+              type="checkbox"
+              name="datenschutz"
+              checked={formData.datenschutz}
+              onChange={handleInputChange}
+              required
+              className="mt-1 w-5 h-5 text-yellow-400 bg-transparent border-2 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2"
+            />
+            <label className="text-gray-300 text-sm leading-relaxed">
+              Mit der Verarbeitung der im Kontaktformular angegebenen 
+              personenbezogenen Daten zum Zwecke der 
+              Kontaktaufnahme durch die Bold Marketing + Development 
+              GmbH bin ich einverstanden. Nähere Informationen zur 
+              Datenverarbeitung finden Sie in unserer{' '}
+              <a href="#" className="text-yellow-400 hover:underline">
+                Datenschutzerklärung
+              </a>. *
             </label>
-            <AnimatePresence>
-              {errors.datenschutz && (
-                <motion.span 
-                  className="text-red-500 text-sm mt-2 block"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                >
-                  {errors.datenschutz}
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.div>
+          </div>
 
           {/* Submit Button */}
-          <motion.div 
-            className="pt-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.1 }}
-          >
-            <AnimatePresence mode="wait">
-              {submitSuccess ? (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  className="bg-green-500 text-white px-8 py-3 rounded text-center"
-                >
-                  Nachricht erfolgreich gesendet!
-                </motion.div>
-              ) : (
-                <motion.button
-                  key="submit"
-                  type="submit"
-                  className="bg-yellow-400 text-black px-8 py-3 font-medium hover:bg-yellow-300 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black relative overflow-hidden"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="flex items-center justify-center"
-                    >
-                      <motion.span
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="inline-block h-5 w-5 border-2 border-black border-t-transparent rounded-full mr-2"
-                      />
-                      Wird gesendet...
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                    >
-                      Jetzt absenden
-                    </motion.span>
-                  )}
-                </motion.button>
-              )}
-            </AnimatePresence>
-          </motion.div>
+          <div className="pt-6">
+            <button
+              type="submit"
+              className="bg-yellow-400 text-black px-8 py-4 font-semibold hover:bg-yellow-300 transition-colors duration-300 transform hover:scale-105 text-lg"
+            >
+              Jetzt absenden
+            </button>
+          </div>
         </motion.form>
-      </motion.div>
-    </motion.div>
+      </div>
+    </section>
   );
-}
+};
 
-export default Form;
+export default Contact;

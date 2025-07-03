@@ -6,9 +6,10 @@ import AboutSection from './components/AboutSection'
 import ServicesSection from './components/ServicesSection'
 import ProjectSection from './components/ProjectSection'
 import TestimonialSection from './components/TestimonialSection'
-import Header from './components/Header'
 import Footer from './components/Footer'
 import Form from './components/Form'
+import Customers from './components/Customer'
+import Contact from './components/Form'
 
 export default function Home() {
   const [mounted, setMounted] = useState(false)
@@ -22,15 +23,17 @@ export default function Home() {
   }
 
   return (
-     <div className="overflow-x-hidden">
-      <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 w-full max-w-[100vw]">
-        <Header />
-        <HeroSection />
-        <AboutSection />
-           <ServicesSection />
-      <ProjectSection />
-      <TestimonialSection /> 
-        <Form/>
+    <div className="w-full overflow-x-hidden">
+      <main className="min-h-screen from-blue-50 to-indigo-100 w-full">
+     
+       
+          <HeroSection />
+          <AboutSection />
+          <ServicesSection />
+          <Customers />
+          <ProjectSection />
+          <TestimonialSection />
+          <Contact />
         <Footer />
       </main>
     </div>

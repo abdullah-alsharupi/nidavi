@@ -1,154 +1,249 @@
-'use client'
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+const Projects = () => {
+  const [currentSlide, setCurrentSlide] = useState(1);
 
-const projects = [
-  {
-    id: 1,
-    title: 'ARSLAN TIEFBAU',
-    description: 'Design ist mehr als ein schönes Logo oder eine moderne Website – es ist die Grundlage dafür, wie deine Marke wahrgenommen wird. Außerdem kreieren wir nicht nur deinen Wunsch in bester Art sondern zusätzlich noch ein Lächeln im Gesicht durch unsere Professionalität.',
-    additionalText: 'Bei NIDAVI, deiner kreativen Designagentur aus Miesbach, entwickeln wir ganzheitliche Markenerlebnisse, die genau auf dich, dein Unternehmen und deine Zielgruppe abgestimmt sind. Ob Logo-Design für Handwerksbetriebe, Webdesign für kleine Unternehmen oder hochwertige Printmedien, wir gestalten nicht nur Oberflächen – wir formen Identität.',
-    image: '/10.png',
-    category: 'Branding'
-  },
-  {
-    id: 2,
-    title: 'MÜLLER ELEKTRO',
-    description: 'Komplette Markenidentität für einen modernen Elektrobetrieb mit Logo, Website und Geschäftsausstattung.',
-    additionalText: 'Ein durchgängiges Corporate Design, das Vertrauen schafft und die Professionalität des Unternehmens unterstreicht.',
-    image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: 'Corporate Design'
-  },
-  {
-    id: 3,
-    title: 'WEBER SANITÄR',
-    description: 'Moderne Website mit Buchungssystem für einen Sanitärbetrieb aus der Region.',
-    additionalText: 'Benutzerfreundliche Website mit integriertem Terminbuchungssystem für optimierte Kundenbetreuung.',
-    image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: 'Webdesign'
-  },
-  {
-    id: 4,
-    title: 'SCHMIDT MALEREI',
-    description: 'Komplette Markenentwicklung für einen traditionellen Malerbetrieb.',
-    additionalText: 'Von der Logoentwicklung bis zur Fahrzeugbeschriftung – ein stimmiges Gesamtkonzept.',
-    image: 'https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: 'Branding'
-  },
-  {
-    id: 5,
-    title: 'FISCHER HEIZUNG',
-    description: 'Digitale Transformation eines Heizungsbetriebs mit neuer Website und Online-Marketing.',
-    additionalText: 'Moderne digitale Präsenz für nachhaltiges Wachstum und bessere Kundengewinnung.',
-    image: 'https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: 'Digital Marketing'
-  },
-  {
-    id: 6,
-    title: 'BAUER ZIMMEREI',
-    description: 'Traditionelles Handwerk modern präsentiert – Website und Printmedien für eine Zimmerei.',
-    additionalText: 'Authentische Darstellung traditioneller Handwerkskunst in zeitgemäßem Design.',
-    image: 'https://images.pexels.com/photos/196655/pexels-photo-196655.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: 'Corporate Design'
-  }
-]
+  const projects = [
+    {
+      id: 0,
+      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
+      title: 'Previous Project',
+      subtitle: 'Design & Development',
+      company: 'Previous Company',
+      description: 'Markenentwicklung'
+    },
+    {
+      id: 1,
+      image: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800',
+      title: 'Arslan Tiefbau',
+      subtitle: 'Markenentwicklung',
+      company: 'Arslan Tiefbau',
+      description: 'Markenentwicklung',
+      isMain: true
+    },
+    {
+      id: 2,
+      image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800',
+      title: 'Next Project',
+      subtitle: 'Branding & Web',
+      company: 'Next Company',
+      description: 'Branding & Web'
+    }
+  ];
 
-export default function ProjectSection() {
-  const duplicatedProjects = [...projects, ...projects]
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % projects.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
+  const getPrevIndex = () => (currentSlide - 1 + projects.length) % projects.length;
+  const getNextIndex = () => (currentSlide + 1) % projects.length;
 
   return (
-    <section id="projekte" className="py-20 bg-black text-white">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-yellow-400 text-lg font-medium mb-4">Projekte</h3>
-            <h2 className="text-4xl md:text-5xl font-light mb-8">
-              Unsere <em className="italic">Projekte</em>
-            </h2>
-            
+    <section className="min-h-screen bg-black text-white flex items-center justify-center px-4 lg:px-8 py-16 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full">
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-left lg:text-center mb-12 lg:mb-16"
+        >
+          <h3 className="text-yellow-400 text-xl mb-4 uppercase tracking-wider">Projekte</h3>
+          <h2 className="text-4xl md:text-6xl font-light text-white mb-8 lg:mb-12">
+            Unsere <span className="italic font-serif">Projekte</span>
+          </h2>
+        </motion.div>
+
+        {/* Desktop Layout */}
+        <div className="hidden lg:grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left Content */}
+          <div className="space-y-8">
             <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
               <p>
-                Design ist mehr als ein schönes Logo oder eine moderne 
-                Website – es ist die Grundlage dafür, wie deine Marke 
-                wahrgenommen wird. Außerdem kreieren wir nicht nur deinen 
-                Wunsch in bester Art sondern zusätzlich noch ein Lächeln im 
-                Gesicht durch unsere Professionalität.
+                Für Arslan Tiefbau – ein etabliertes Unternehmen im Tief- 
+                und Gartenbau – durften wir den kompletten 
+                Markenauftritt entwickeln. Vom Logo über Visitenkarten, 
+                Fahrzeugfolierung, eine moderne Website bis hin zu 
+                durchdachtem Social Media Content und zielgerichtetem 
+                Online Marketing.
               </p>
               
               <p>
-                Bei NIDAVI, deiner kreativen Designagentur aus Miesbach, 
-                entwickeln wir ganzheitliche Markenerlebnisse, die genau auf 
-                dich, dein Unternehmen und deine Zielgruppe abgestimmt 
-                sind. Ob Logo-Design für Handwerksbetriebe, Webdesign für 
-                kleine Unternehmen oder hochwertige Printmedien, wir 
-                gestalten nicht nur Oberflächen – wir formen Identität.
+                Alles aus einer Hand, visuell aufeinander abgestimmt und 
+                auf maximale Wirkung ausgelegt. Das Ergebnis: ein 
+                starker, professioneller Auftritt, der lokal wie digital 
+                überzeugt.
               </p>
             </div>
             
-            <motion.button
-              className="bg-yellow-400 text-black px-8 py-3 font-medium mt-8 hover:bg-yellow-300 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Zum Projekt
-            </motion.button>
-          </motion.div>
-          
-          <motion.div
-            className="relative h-96 overflow-hidden rounded-lg"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-             <div className="relative h-[600px] overflow-hidden">
-          <div className="flex flex-col animate-slide-vertical-slow">
-            {duplicatedProjects.map((project, index) => (
-              <motion.div
-                key={`${project.id}-${index}`}
-                className="flex-shrink-0 mb-8 mx-auto"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: (index % projects.length) * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="bg-gray-900 rounded-lg overflow-hidden hover:shadow-2xl transition-all duration-300 max-w-md mx-auto group">
-                  <div className="relative h-64 overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="text-yellow-400 text-sm font-medium mb-2">
-                      {project.category}
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 mb-4 text-sm leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
+            <div className="pt-4">
+              <button className="bg-yellow-400 text-black px-8 py-4 font-semibold hover:bg-yellow-300 transition-colors duration-300 transform hover:scale-105">
+                Zum Projekt
+              </button>
+            </div>
+          </div>
+
+          {/* Right Image Carousel */}
+          <div className="relative">
+            <div className="flex items-center justify-center overflow-hidden">
+              {/* Previous Image (Partial) */}
+              <div className="w-24 h-80 overflow-hidden opacity-60">
+                <img 
+                  src={projects[getPrevIndex()].image}
+                  alt="Previous"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Current Main Image */}
+              <div className="w-80 h-96 mx-4 relative overflow-hidden rounded-lg">
+                <img 
+                  src={projects[currentSlide].image}
+                  alt={projects[currentSlide].title}
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/20"></div>
+                
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                  <h4 className="text-white text-xl font-bold mb-1">{projects[currentSlide].company}</h4>
+                  <p className="text-gray-300 text-sm">{projects[currentSlide].description}</p>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+
+              {/* Next Image (Partial) */}
+              <div className="w-24 h-80 overflow-hidden opacity-60">
+                <img 
+                  src={projects[getNextIndex()].image}
+                  alt="Next"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Navigation Arrows */}
+            <button 
+              onClick={prevSlide}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white hover:text-yellow-400 transition-colors z-10 bg-black/50 rounded-full p-2"
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            <button 
+              onClick={nextSlide}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 text-white hover:text-yellow-400 transition-colors z-10 bg-black/50 rounded-full p-2"
+            >
+              <ChevronRight size={24} />
+            </button>
           </div>
         </div>
-          </motion.div>
+
+        {/* Mobile Layout */}
+        <div className="lg:hidden">
+          {/* Description Text */}
+          <div className="space-y-6 text-gray-300 text-lg leading-relaxed mb-12 text-center">
+            <p>
+              Für Arslan Tiefbau – ein etabliertes Unternehmen im Tief- 
+              und Gartenbau – durften wir den kompletten 
+              Markenauftritt entwickeln. Vom Logo über Visitenkarten, 
+              Fahrzeugfolierung, eine moderne Website bis hin zu 
+              durchdachtem Social Media Content und zielgerichtetem 
+              Online Marketing.
+            </p>
+            
+            <p>
+              Alles aus einer Hand, visuell aufeinander abgestimmt und 
+              auf maximale Wirkung ausgelegt. Das Ergebnis: ein 
+              starker, professioneller Auftritt, der lokal wie digital 
+              überzeugt.
+            </p>
+          </div>
+
+          {/* Mobile Image Carousel */}
+          <div className="relative mb-8">
+            <div className="flex items-center justify-center overflow-hidden">
+              {/* Previous Image (Partial) */}
+              <div className="w-16 h-64 overflow-hidden opacity-50">
+                <img 
+                  src={projects[getPrevIndex()].image}
+                  alt="Previous"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Current Main Image */}
+              <div className="w-64 h-80 mx-2 relative overflow-hidden rounded-lg">
+                <img 
+                  src={projects[currentSlide].image}
+                  alt={projects[currentSlide].title}
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/20"></div>
+                
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                  <h4 className="text-white text-lg font-bold mb-1">{projects[currentSlide].company}</h4>
+                  <p className="text-gray-300 text-sm">{projects[currentSlide].description}</p>
+                  
+                  <button className="bg-yellow-400 text-black px-4 py-2 font-medium hover:bg-yellow-500 transition-colors mt-3 text-sm">
+                    Zum Projekt
+                  </button>
+                </div>
+              </div>
+
+              {/* Next Image (Partial) */}
+              <div className="w-16 h-64 overflow-hidden opacity-50">
+                <img 
+                  src={projects[getNextIndex()].image}
+                  alt="Next"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Navigation Arrows */}
+            <button 
+              onClick={prevSlide}
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:text-yellow-400 transition-colors z-10 bg-black/50 rounded-full p-2"
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            <button 
+              onClick={nextSlide}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:text-yellow-400 transition-colors z-10 bg-black/50 rounded-full p-2"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
 
-        {/* Vertical Auto-Sliding Projects */}
-      
+        {/* Slide Indicators */}
+        <div className="flex justify-center mt-8 gap-2">
+          {projects.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-colors ${
+                index === currentSlide ? 'bg-yellow-400' : 'bg-gray-600'
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </section>
-  )
-}
+  );
+};
+
+export default Projects;

@@ -1,100 +1,116 @@
-'use client'
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+const Testimonials = () => {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-const testimonials = [
-  {
-    id: 1,
-    text: "Mit NIDAVI haben wir endlich einen Bloger gefunden, der nicht nur versteht, was wir brauchen – sondern auch, wie man es modern, professionell und mit Wiedererkennungswert umsetzt. Vom Logo bis zur Website passt einfach alles. Unsere Kunden merken den Unterschied.",
-    author: "Fatih Arslan",
-    company: "Arslan Tiefbau"
-  },
-  {
-    id: 2,
-    text: "Die Zusammenarbeit mit NIDAVI war von Anfang an professionell und zielführend. Unser neues Corporate Design spiegelt perfekt wider, wofür unser Unternehmen steht. Die Qualität der Arbeit ist herausragend.",
-    author: "Michael Weber",
-    company: "Weber Sanitär"
-  },
-  {
-    id: 3,
-    text: "NIDAVI hat unsere digitale Präsenz komplett transformiert. Die neue Website und das Marketing-Konzept haben zu einer deutlichen Steigerung unserer Kundenanfragen geführt. Absolut empfehlenswert!",
-    author: "Thomas Müller",
-    company: "Müller Elektro"
-  }
-]
-
-export default function TestimonialSection() {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const testimonials = [
+    {
+      id: 1,
+      quote: "Mit NIDAVI haben wir endlich einen Partner gefunden, der nicht nur versteht, was wir brauchen y sondern auch, wie man es modern, professionell und mit Wiedererkennungswert umsetzt. Vom Logo bis zur Website passt einfach alles. Unsere Kunden merken den Unterschied.",
+      author: "Fatih Arslan",
+      company: "Arslan Tiefbau"
+    },
+    {
+      id: 2,
+      quote: "Die Zusammenarbeit mit NIDAVI war von Anfang an professionell und zielführend. Das Team hat unsere Vision perfekt verstanden und in ein modernes, ansprechendes Design umgesetzt.",
+      author: "Maria Schmidt",
+      company: "Schmidt Consulting"
+    },
+    {
+      id: 3,
+      quote: "Hervorragende Arbeit! NIDAVI hat unseren kompletten Markenauftritt revolutioniert. Die Qualität und Aufmerksamkeit für Details ist beeindruckend.",
+      author: "Thomas Weber",
+      company: "Weber Solutions"
+    }
+  ];
 
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
-  }
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
 
   return (
-    <section className="py-12 md:py-20 bg-gray-50 overflow-x-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
-        <motion.div
-          className="text-center mb-12 md:mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-base md:text-lg font-medium mb-3">Kundenstimmen</h3>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light">
-            <em className="italic">Zufriedenheit</em>
+    <section className="min-h-screen bg-white text-black py-20 px-4 flex items-center">
+      <div className="max-w-4xl mx-auto w-full">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h3 className="text-gray-600 text-lg mb-6 uppercase tracking-wider font-medium">
+            Kundenstimmen
+          </h3>
+          <h2 className="text-5xl md:text-6xl font-light mb-4 leading-tight">
+            <span className="italic font-serif">Zufriedenheit</span>
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 mt-3 md:mt-4">unserer Kunden</p>
-        </motion.div>
+          <p className="text-2xl md:text-3xl font-light text-gray-700 mt-2">
+            unserer Kunden
+          </p>
+        </div>
 
-        <div className="max-w-3xl lg:max-w-4xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-center justify-between mb-6 md:mb-8 px-4 gap-4 sm:gap-0">
-            <button
-              onClick={prevTestimonial}
-              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border-2 border-black hover:bg-black hover:text-white transition-colors flex-shrink-0"
-            >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            
-            <motion.div
-              key={currentTestimonial}
-              className="text-center flex-1 mx-2 sm:mx-4 md:mx-6 min-w-0"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <blockquote className="text-base md:text-lg lg:text-xl text-gray-800 mb-4 md:mb-6 leading-relaxed px-2">
-                "{testimonials[currentTestimonial].text}"
+        {/* Testimonial Content */}
+        <div className="max-w-3xl mx-auto">
+          <div className="relative min-h-[300px] flex items-center">
+            <div className="w-full text-center">
+              <blockquote className="text-xl md:text-2xl leading-relaxed text-gray-800 mb-12 font-light">
+                "{testimonials[currentTestimonial].quote}"
               </blockquote>
-              <div className="font-medium md:font-bold text-base md:text-lg">
-                {testimonials[currentTestimonial].author} - {testimonials[currentTestimonial].company}
+              
+              {/* Navigation */}
+              <div className="flex items-center justify-center gap-8 mb-8">
+                <button
+                  onClick={prevTestimonial}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft size={24} className="text-gray-600" />
+                </button>
+                
+                <div className="text-center">
+                  <h4 className="text-xl font-semibold text-black mb-1">
+                    {testimonials[currentTestimonial].author}
+                  </h4>
+                  <p className="text-gray-600 text-lg">
+                    {testimonials[currentTestimonial].company}
+                  </p>
+                </div>
+                
+                <button
+                  onClick={nextTestimonial}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight size={24} className="text-gray-600" />
+                </button>
               </div>
-            </motion.div>
-            
+              
+              {/* CTA Button */}
+              <button className="bg-yellow-400 text-black px-8 py-3 text-lg font-semibold hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105">
+                Zum Projekt
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Slide Indicators */}
+        <div className="flex justify-center mt-12 space-x-3">
+          {testimonials.map((_, index) => (
             <button
-              onClick={nextTestimonial}
-              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border-2 border-black hover:bg-black hover:text-white transition-colors flex-shrink-0"
-            >
-              <svg className="w-5 h-5 sm:w-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-          
-          <div className="text-center mt-6 md:mt-8">
-            <button className="bg-yellow-400 text-black px-6 py-2 md:px-8 md:py-3 font-medium hover:bg-yellow-300 transition-colors text-sm md:text-base">
-              Zum Projekt
-            </button>
-          </div>
+              key={index}
+              onClick={() => setCurrentTestimonial(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                currentTestimonial === index 
+                  ? 'bg-yellow-400 scale-110' 
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
+
+export default Testimonials;
