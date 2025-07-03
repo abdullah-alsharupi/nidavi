@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Menu } from 'lucide-react';
+import Image from 'next/image';
 
 const Hero = () => {
   const words = [
@@ -51,8 +52,8 @@ const Hero = () => {
         {/* Mobile Navigation */}
         <div className="lg:hidden flex items-center justify-between">
           {/* Logo */}
-          <div className="w-10 h-10 bg-black flex items-center justify-center">
-            <span className="text-white font-bold text-lg">N</span>
+          <div className="w-10 h-10  flex items-center justify-center">
+           <Image alt='logo' src={'/NidaviSmallBlackLogo.png'} width={200} height={200} />
           </div>
 
           {/* Menu Button */}
@@ -80,7 +81,7 @@ const Hero = () => {
                 </motion.h1>
                 
                 {/* Animated Word */}
-                <div className="relative h-24 md:h-32 lg:h-36 xl:h-44 flex items-center justify-center lg:justify-start overflow-hidden">
+                <div className="relative h-24 md:h-32 w-full p-2 lg:h-36 xl:h-44 flex items-center justify-center lg:justify-start overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.h2
                       key={currentWordIndex}
@@ -94,7 +95,7 @@ const Hero = () => {
                         stiffness: 100,
                         damping: 15
                       }}
-                      className="absolute font-serif italic text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-black leading-none"
+                      className="absolute font-serif italic text-5xl  md:text-5xl lg:text-8xl xl:text-9xl text-black leading-none"
                       style={{ 
                         transformStyle: 'preserve-3d'
                       }}
