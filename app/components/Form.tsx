@@ -26,40 +26,40 @@ const Contact = () => {
   };
 
   return (
-    <section className="min-h-screen bg-black text-white flex items-center justify-center px-8 py-16 relative overflow-hidden">
-      <div className="max-w-2xl mx-auto w-full">
+    <section className="min-h-screen bg-black text-white flex items-center justify-center px-4 md:px-8 py-16 relative overflow-hidden">
+      <div className="w-full max-w-6xl mx-auto">
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-12 lg:mb-16"
         >
           <h3 className="text-yellow-400 text-xl mb-4 uppercase tracking-wider">
             Kontaktmöglichkeit
           </h3>
-          <h2 className="text-4xl md:text-5xl font-light text-white mb-8">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6 lg:mb-8">
             Fragen <span className="italic font-serif">oder</span> Ideen?
           </h2>
-          <p className="text-gray-300 text-lg leading-relaxed max-w-xl mx-auto">
+          <p className="text-gray-300 text-lg leading-relaxed max-w-7xl mx-auto">
             Du hast Fragen zu uns, unseren Dienstleistungen oder was 
             Anderem oder brauchst jemanden der deine Ideen auf bester Art 
             umsetzt? Dann schreib uns jetzt an!
           </p>
         </motion.div>
 
-        {/* Contact Form */}
+        {/* Contact Form - Full width on desktop */}
         <motion.form 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
           onSubmit={handleSubmit}
-          className="space-y-8"
+          className="space-y-8 w-full max-w-6xl mx-auto"
         >
           {/* First Row - Name Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             <div className="relative">
               <input
                 type="text"
@@ -68,7 +68,7 @@ const Contact = () => {
                 onChange={handleInputChange}
                 placeholder="Vorname*"
                 required
-                className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg"
+                className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg lg:text-xl"
               />
             </div>
             <div className="relative">
@@ -79,12 +79,12 @@ const Contact = () => {
                 onChange={handleInputChange}
                 placeholder="Nachname*"
                 required
-                className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg"
+                className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg lg:text-xl"
               />
             </div>
           </div>
 
-          {/* Company Field */}
+          {/* Company Field - Full width */}
           <div className="relative">
             <input
               type="text"
@@ -92,11 +92,11 @@ const Contact = () => {
               value={formData.unternehmen}
               onChange={handleInputChange}
               placeholder="Unternehmen"
-              className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg"
+              className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg lg:text-xl"
             />
           </div>
 
-          {/* Email Field */}
+          {/* Email Field - Full width */}
           <div className="relative">
             <input
               type="email"
@@ -105,13 +105,13 @@ const Contact = () => {
               onChange={handleInputChange}
               placeholder="E-Mail-Adresse*"
               required
-              className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg"
+              className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg lg:text-xl"
             />
           </div>
 
-          {/* Phone Field with German Flag */}
+          {/* Phone Field with German Flag - Full width */}
           <div className="relative">
-            <div className="flex items-center border-b-2 border-gray-600 focus-within:border-yellow-400 transition-colors">
+            <div className="flex items-center border-b-2 border-gray-600 focus-within:border-yellow-400 transition-colors w-full">
               <div className="flex items-center mr-4 flex-shrink-0">
                 {/* German Flag */}
                 <div className="w-8 h-5 border border-gray-500 overflow-hidden rounded-sm">
@@ -127,12 +127,12 @@ const Contact = () => {
                 onChange={handleInputChange}
                 placeholder="Telefonnummer*"
                 required
-                className="flex-1 bg-transparent border-0 text-white placeholder-gray-400 py-3 px-0 focus:outline-none text-lg"
+                className="flex-1 bg-transparent border-0 text-white placeholder-gray-400 py-3 px-0 focus:outline-none text-lg lg:text-xl"
               />
             </div>
           </div>
 
-          {/* Message Field */}
+          {/* Message Field - Full width */}
           <div className="relative">
             <textarea
               name="nachricht"
@@ -140,21 +140,21 @@ const Contact = () => {
               onChange={handleInputChange}
               placeholder="Nachricht"
               rows={4}
-              className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg resize-none"
+              className="w-full bg-transparent border-0 border-b-2 border-gray-600 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-yellow-400 transition-colors text-lg lg:text-xl resize-none"
             />
           </div>
 
-          {/* Privacy Checkbox */}
-          <div className="flex items-start space-x-3 pt-4">
+          {/* Privacy Checkbox - Full width */}
+          <div className="flex items-start space-x-3 pt-4 w-full">
             <input
               type="checkbox"
               name="datenschutz"
               checked={formData.datenschutz}
               onChange={handleInputChange}
               required
-              className="mt-1 w-5 h-5 text-yellow-400 bg-transparent border-2 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2"
+              className="mt-1 w-5 h-5 text-yellow-400 bg-transparent border-2 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2 flex-shrink-0"
             />
-            <label className="text-gray-300 text-sm leading-relaxed">
+            <label className="text-gray-300 text-sm lg:text-base leading-relaxed">
               Mit der Verarbeitung der im Kontaktformular angegebenen 
               personenbezogenen Daten zum Zwecke der 
               Kontaktaufnahme durch die Bold Marketing + Development 
@@ -166,11 +166,11 @@ const Contact = () => {
             </label>
           </div>
 
-          {/* Submit Button */}
-          <div className="pt-6">
+          {/* Submit Button - Centered but full width on mobile */}
+          <div className="pt-6 flex justify-center lg:justify-start">
             <button
               type="submit"
-              className="bg-yellow-400 text-black px-8 py-4 font-semibold hover:bg-yellow-300 transition-colors duration-300 transform hover:scale-105 text-lg"
+              className="bg-yellow-400 text-black px-8 py-4 font-semibold hover:bg-yellow-300 transition-colors duration-300 transform hover:scale-105 text-lg lg:text-xl w-full lg:w-auto"
             >
               Jetzt absenden
             </button>

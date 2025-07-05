@@ -359,3 +359,48 @@
 // };
 
 // export default Navigation;
+// Header.js
+import React from 'react';
+import { ArrowRight, Menu, X } from 'lucide-react';
+import Image from 'next/image';
+
+const Header = ({ isMobileMenuOpen, toggleMobileMenu }) => {
+  return (
+    <nav className="absolute top-0 left-0 right-0 z-50 px-6 lg:px-16 py-6">
+      {/* Desktop Navigation */}
+      <div className="hidden lg:flex items-center justify-between w-full">
+        <div className="flex items-center">
+          <Image alt='logo' src={'/NidaviSmallBlackLogo.png'} width={60} height={80} />
+        </div>
+        <div className="flex items-center space-x-12">
+          <a href="#" className="text-black hover:text-gray-600 transition-colors font-medium text-lg">Über Uns</a>
+          <a href="#" className="text-black hover:text-gray-600 transition-colors font-medium text-lg">Leistungen</a>
+          <a href="#" className="text-black hover:text-gray-600 transition-colors font-medium text-lg">Projekte</a>
+          <a href="#" className="text-black hover:text-gray-600 transition-colors font-medium text-lg">Kunden</a>
+          <a href="#" className="text-black hover:text-gray-600 transition-colors font-medium text-lg">Blog</a>
+        </div>
+        <button className="bg-black text-white px-8 py-3 font-medium hover:bg-gray-800 transition-colors text-lg">
+          Kontakt
+        </button>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className="lg:hidden flex items-center justify-between">
+        <div className="w-12 h-12 flex items-center justify-center">
+          <Image alt='logo' src={'/NidaviSmallBlackLogo.png'} width={100} height={100} />
+        </div>
+        <button onClick={toggleMobileMenu} className="text-black p-2">
+          {isMobileMenuOpen ? <X size={28} /> : (
+            <div className="flex flex-col space-y-1">
+              <div className="w-6 h-0.5 bg-black"></div>
+              <div className="w-6 h-0.5 bg-black"></div>
+              <div className="w-6 h-0.5 bg-black"></div>
+            </div>
+          )}
+        </button>
+      </div>
+    </nav>
+  );
+};
+
+export default Header;

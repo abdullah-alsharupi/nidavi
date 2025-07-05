@@ -50,10 +50,10 @@ const Testimonials = () => {
         </div>
 
         {/* Testimonial Content */}
-        <div className="max-w-3xl mx-auto">
-          <div className="relative min-h-[300px] flex items-center">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative min-h-full flex items-center">
             <div className="w-full text-center">
-              <blockquote className="text-xl md:text-2xl leading-relaxed text-gray-800 mb-12 font-light">
+              <blockquote className="lg:text-3xl md:text-2xl leading-relaxed text-gray-800 mb-12 font-light">
                 "{testimonials[currentTestimonial].quote}"
               </blockquote>
               
@@ -94,7 +94,7 @@ const Testimonials = () => {
         </div>
 
         {/* Slide Indicators */}
-        <div className="flex justify-center mt-12 space-x-3">
+        <div className="flex justify-center mt-12 space-x-3 ">
           {testimonials.map((_, index) => (
             <button
               key={index}
